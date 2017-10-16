@@ -5,6 +5,15 @@ public class test {
     private String name;
     private String lastname;
 
+    public test (){
+
+    }
+
+    public test(String name, String lastname) {
+        this.name = name;
+        this.lastname = lastname;
+    }
+
     public int getId() {
         return id;
     }

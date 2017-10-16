@@ -13,10 +13,17 @@ public class JdbcTemplateClassicApp1 {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("beans.cp.xml");
 
         testDao dao = (TestDaoImpl) ctx.getBean("orgDao");
+
+        // creating seed data
+        DaoUtils.createSeedData(dao);
+
         List<test> orgs = dao.getAllTest();
-        for(test org : orgs){
-            System.out.println(org.toString());
-        }
+        DaoUtils.printTest(orgs, DaoUtils.readOperation);
+
+        test org = new test("Emmm" ,"hey");
+        boolean isCreated = dao.create(org);
+        DaoUtils.printSuccessFailure(DaoUtils.createOperation, isCreated);
+        DaoUtils.printTest(dao.getAllTest(), DaoUtils.readOperation);
 
         ((ClassPathXmlApplicationContext)ctx).close();
     }

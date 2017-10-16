@@ -22,7 +22,9 @@ public class TestDaoImpl implements testDao {
 
     @Override
     public boolean create(test org) {
-        return false;
+        String sqlQuery = "INSERT INTO test (name, lastname)" + "VALUE(?,?)";
+        Object[] args = new Object[]{org.getName(), org.getLastname()};
+        return jdbcTemplate.update(sqlQuery, args) == 1;
     }
 
     @Override
@@ -50,6 +52,7 @@ public class TestDaoImpl implements testDao {
 
     @Override
     public void cleanup() {
-
+        String sqlQuery = "TRUNCATE TABLE test";
+        jdbcTemplate.execute(sqlQuery);
     }
 }
